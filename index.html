@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thiệp mời kỷ niệm 2/9</title>
+  <style>
+    :root{
+      --red:#a9252c;
+      --deep-red:#7f1d24;
+      --soft-red:#f6e7e8;
+      --cream:#fffaf7;
+      --white:#ffffff;
+      --text:#54272a;
+      --muted:#8b6769;
+      --gold:#d2aa58;
+      --shadow:0 20px 60px rgba(115,31,37,.14);
+    }
+
+    *{box-sizing:border-box}
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 15%, rgba(169,37,44,.08), transparent 25%),
+        radial-gradient(circle at 85% 80%, rgba(210,170,88,.08), transparent 22%),
+        linear-gradient(135deg, #fffdfb 0%, #fff7f6 50%, #fdf2f2 100%);
+      overflow-x:hidden;
+    }
+
+    .page{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px 18px;
+      position:relative;
+    }
+
+    .decor{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+    }
+
+    .decor span{
+      position:absolute;
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      border:1px solid rgba(169,37,44,.08);
+    }
+
+    .decor .d1{left:-70px;top:70px}
+    .decor .d2{right:-95px;bottom:50px;width:250px;height:250px}
+    .decor .d3{right:8%;top:6%;width:70px;height:70px;border-color:rgba(210,170,88,.16)}
+
+    .card{
+      width:min(920px, 100%);
+      background:rgba(255,255,255,.88);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(169,37,44,.10);
+      border-radius:32px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .top-line{
+      height:8px;
+      background:linear-gradient(90deg, var(--deep-red), var(--red), #d86a70, var(--red), var(--deep-red));
+    }
+
+    .content{
+      padding:56px 60px 48px;
+      text-align:center;
+      position:relative;
+    }
+
+    .mini-star{
+      width:42px;
+      height:42px;
+      margin:0 auto 18px;
+      display:grid;
+      place-items:center;
+      color:var(--gold);
+      font-size:30px;
+      filter:drop-shadow(0 4px 10px rgba(210,170,88,.25));
+    }
+
+    .eyebrow{
+      margin:0 0 14px;
+      color:var(--red);
+      text-transform:uppercase;
+      letter-spacing:.24em;
+      font-size:12px;
+      font-weight:700;
+    }
+
+    h1{
+      margin:0 auto;
+      max-width:760px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size:clamp(38px, 6vw, 72px);
+      line-height:1.04;
+      color:var(--deep-red);
+      font-weight:600;
+    }
+
+    .sub{
+      margin:20px auto 34px;
+      max-width:680px;
+      font-size:clamp(16px, 2vw, 20px);
+      line-height:1.7;
+      color:var(--muted);
+    }
+
+    .divider{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin:32px auto;
+      max-width:540px;
+      color:var(--gold);
+    }
+
+    .divider::before,
+    .divider::after{
+      content:"";
+      height:1px;
+      flex:1;
+      background:linear-gradient(90deg, transparent, rgba(210,170,88,.55));
+    }
+
+    .divider::after{
+      background:linear-gradient(90deg, rgba(210,170,88,.55), transparent);
+    }
+
+    .info-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:14px;
+      margin:0 auto 34px;
+      max-width:760px;
+    }
+
+    .info{
+      background:linear-gradient(180deg, #fff 0%, #fff9f8 100%);
+      border:1px solid rgba(169,37,44,.10);
+      border-radius:20px;
+      padding:20px 16px;
+    }
+
+    .icon{
+      font-size:23px;
+      margin-bottom:9px;
+    }
+
+    .label{
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-size:10px;
+      font-weight:700;
+      margin-bottom:7px;
+    }
+
+    .value{
+      color:var(--deep-red);
+      font-size:16px;
+      font-weight:700;
+      line-height:1.4;
+    }
+
+    .message{
+      margin:0 auto;
+      max-width:700px;
+      padding:26px 28px;
+      border-radius:24px;
+      background:var(--soft-red);
+      color:#6d3337;
+      line-height:1.75;
+      font-size:16px;
+    }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:12px;
+      margin-top:30px;
+    }
+
+    .btn{
+      appearance:none;
+      border:none;
+      cursor:pointer;
+      padding:14px 22px;
+      border-radius:999px;
+      font-size:14px;
+      font-weight:700;
+      transition:.2s ease;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+
+    .btn.primary{
+      color:#fff;
+      background:var(--red);
+      box-shadow:0 10px 24px rgba(169,37,44,.22);
+    }
+
+    .btn.secondary{
+      color:var(--red);
+      background:#fff;
+      border:1px solid rgba(169,37,44,.16);
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+    }
+
+    .footer{
+      padding:18px 28px 26px;
+      text-align:center;
+      color:#9c7779;
+      font-size:12px;
+      letter-spacing:.04em;
+    }
+
+    .floating{
+      position:absolute;
+      font-size:18px;
+      opacity:.22;
+      animation:float 4s ease-in-out infinite;
+    }
+
+    .f1{left:6%;top:12%;animation-delay:.3s}
+    .f2{right:7%;top:17%;animation-delay:1s}
+    .f3{left:8%;bottom:12%;animation-delay:1.7s}
+    .f4{right:8%;bottom:14%;animation-delay:2.4s}
+
+    @keyframes float{
+      0%,100%{transform:translateY(0) rotate(0deg)}
+      50%{transform:translateY(-8px) rotate(5deg)}
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:24px;
+      transform:translate(-50%, 20px);
+      background:#5f2529;
+      color:#fff;
+      padding:12px 18px;
+      border-radius:999px;
+      font-size:13px;
+      opacity:0;
+      pointer-events:none;
+      transition:.25s ease;
+      box-shadow:0 10px 30px rgba(0,0,0,.18);
+    }
+
+    .toast.show{
+      opacity:1;
+      transform:translate(-50%, 0);
+    }
+
+    @media (max-width: 720px){
+      .content{padding:42px 20px 34px}
+      .card{border-radius:24px}
+      .info-grid{grid-template-columns:1fr}
+      .message{padding:22px 18px}
+      .actions{flex-direction:column}
+      .btn{width:100%}
+    }
+
+    /* Màn hình mở thiệp và trình điều khiển nhạc */
+    .opening-screen{
+      position:fixed;
+      inset:0;
+      z-index:1000;
+      display:grid;
+      place-items:center;
+      padding:24px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(169,37,44,.10), transparent 28%),
+        radial-gradient(circle at 80% 80%, rgba(210,170,88,.10), transparent 25%),
+        linear-gradient(135deg, #fffdfb, #fff4f3);
+      transition:opacity .75s ease, visibility .75s ease;
+    }
+
+    .opening-box{
+      width:min(460px, 100%);
+      padding:42px 28px;
+      text-align:center;
+      border-radius:30px;
+      background:rgba(255,255,255,.9);
+      border:1px solid rgba(169,37,44,.12);
+      box-shadow:0 24px 70px rgba(115,31,37,.16);
+    }
+
+    .opening-star{
+      color:var(--gold);
+      font-size:34px;
+      margin-bottom:14px;
+    }
+
+    .opening-box h2{
+      margin:0;
+      color:var(--deep-red);
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:clamp(30px, 7vw, 44px);
+      font-weight:600;
+    }
+
+    .opening-box p{
+      margin:16px auto 24px;
+      max-width:330px;
+      color:var(--muted);
+      line-height:1.65;
+      font-size:15px;
+    }
+
+    .open-btn{
+      border:0;
+      cursor:pointer;
+      padding:15px 25px;
+      border-radius:999px;
+      color:#fff;
+      background:var(--red);
+      font-weight:700;
+      font-size:15px;
+      box-shadow:0 12px 28px rgba(169,37,44,.24);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+
+    .open-btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 32px rgba(169,37,44,.28);
+    }
+
+    .page{
+      opacity:0;
+      transform:scale(.985) translateY(8px);
+      transition:opacity .9s ease, transform .9s ease;
+    }
+
+    body.opened .opening-screen{
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+    }
+
+    body.opened .page{
+      opacity:1;
+      transform:none;
+    }
+
+    .music-toggle{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:900;
+      width:48px;
+      height:48px;
+      border:1px solid rgba(169,37,44,.14);
+      border-radius:50%;
+      background:rgba(255,255,255,.92);
+      color:var(--red);
+      box-shadow:0 10px 28px rgba(115,31,37,.16);
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+      font-size:19px;
+      opacity:0;
+      visibility:hidden;
+      transform:translateY(10px);
+      transition:.3s ease;
+    }
+
+    body.opened .music-toggle{
+      opacity:1;
+      visibility:visible;
+      transform:none;
+    }
+
+    .music-toggle.playing{
+      animation:musicPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes musicPulse{
+      0%,100%{box-shadow:0 10px 28px rgba(115,31,37,.16)}
+      50%{box-shadow:0 10px 34px rgba(169,37,44,.34)}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *, *::before, *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="opening-screen" id="openingScreen">
+    <div class="opening-box">
+      <div class="opening-star">★</div>
+      <p class="eyebrow">Một lời mời thân tình</p>
+      <h2>Lễ Kỷ Niệm 2/9</h2>
+      <p>Chạm vào nút bên dưới để mở thiệp và thưởng thức âm nhạc.</p>
+      <button class="open-btn" type="button" onclick="openInvitation()">
+        💌 Mở thiệp
+      </button>
+    </div>
+  </div>
+
+  <button
+    class="music-toggle"
+    id="musicToggle"
+    type="button"
+    onclick="toggleMusic()"
+    aria-label="Tắt nhạc"
+    title="Bật hoặc tắt nhạc"
+  >🔊</button>
+
+  <div class="decor" aria-hidden="true">
+    <span class="d1"></span>
+    <span class="d2"></span>
+    <span class="d3"></span>
+  </div>
+
+  <main class="page">
+    <section class="card">
+      <div class="top-line"></div>
+
+      <div class="content">
+        <span class="floating f1">✦</span>
+        <span class="floating f2">♡</span>
+        <span class="floating f3">✦</span>
+        <span class="floating f4">♡</span>
+
+        <div class="mini-star">★</div>
+        <p class="eyebrow">Trân trọng kính mời</p>
+
+        <h1>
+          Lễ Kỷ Niệm 2/9
+          <br />
+          & Chúc Mừng Việt Nam Vô Địch
+        </h1>
+
+        <p class="sub">
+          Một buổi tối ấm cúng để cùng nhau sum họp, nâng ly,
+          chia sẻ niềm vui và lưu lại những khoảnh khắc đáng nhớ.
+        </p>
+
+        <div class="divider">✦</div>
+
+        <div class="info-grid">
+          <div class="info">
+            <div class="icon">📅</div>
+            <div class="label">Ngày</div>
+            <div class="value">01 / 09 / 2026</div>
+          </div>
+
+          <div class="info">
+            <div class="icon">🕕</div>
+            <div class="label">Thời gian</div>
+            <div class="value">18:00</div>
+          </div>
+
+          <div class="info">
+            <div class="icon">🏡</div>
+            <div class="label">Địa điểm</div>
+            <div class="value">Nhà ông bà Sơn Nở</div>
+          </div>
+        </div>
+
+        <div class="message">
+          Sự hiện diện của mọi người sẽ làm buổi gặp mặt thêm trọn vẹn.
+          Hẹn gặp nhau vào tối ngày 1/9 để cùng chung vui trong không khí
+          thân tình, nhẹ nhàng và thật nhiều tiếng cười.
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" onclick="shareInvite()">
+            ↗ Chia sẻ thiệp
+          </button>
+        </div>
+      </div>
+
+      <div class="footer">
+        Hẹn gặp mọi người tại nhà ông bà Sơn Nở ♡
+      </div>
+    </section>
+  </main>
+
+
+  <audio id="backgroundMusic" loop preload="auto">
+    <source src="assets/beautiful-in-white.mp3" type="audio/mpeg" />
+  </audio>
+
+  <div class="toast" id="toast">Đã sao chép lời mời!</div>
+
+  <script>
+
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    const musicToggle = document.getElementById('musicToggle');
+    let musicIsPlaying = false;
+
+    async function openInvitation(){
+      document.body.classList.add('opened');
+
+      try{
+        backgroundMusic.volume = 0;
+        await backgroundMusic.play();
+        musicIsPlaying = true;
+        updateMusicButton();
+
+        const targetVolume = 0.36;
+        const fadeSteps = 24;
+        const stepTime = 70;
+        let currentStep = 0;
+
+        const fadeIn = setInterval(() => {
+          currentStep += 1;
+          backgroundMusic.volume = Math.min(
+            targetVolume,
+            targetVolume * (currentStep / fadeSteps)
+          );
+
+          if(currentStep >= fadeSteps){
+            clearInterval(fadeIn);
+          }
+        }, stepTime);
+      }catch(error){
+        musicIsPlaying = false;
+        updateMusicButton();
+        showToast('Bạn có thể bật nhạc bằng nút ở góc dưới.');
+      }
+    }
+
+    async function toggleMusic(){
+      try{
+        if(backgroundMusic.paused){
+          backgroundMusic.volume = 0.36;
+          await backgroundMusic.play();
+          musicIsPlaying = true;
+        }else{
+          backgroundMusic.pause();
+          musicIsPlaying = false;
+        }
+        updateMusicButton();
+      }catch(error){
+        showToast('Trình duyệt chưa cho phép phát nhạc.');
+      }
+    }
+
+    function updateMusicButton(){
+      musicToggle.textContent = musicIsPlaying ? '🔊' : '🔇';
+      musicToggle.setAttribute(
+        'aria-label',
+        musicIsPlaying ? 'Tắt nhạc' : 'Bật nhạc'
+      );
+      musicToggle.classList.toggle('playing', musicIsPlaying);
+    }
+
+    backgroundMusic.addEventListener('play', () => {
+      musicIsPlaying = true;
+      updateMusicButton();
+    });
+
+    backgroundMusic.addEventListener('pause', () => {
+      musicIsPlaying = false;
+      updateMusicButton();
+    });
+
+    const inviteText =
+`Trân trọng kính mời bạn đến dự Lễ Kỷ Niệm 2/9 & Chúc Mừng Việt Nam Vô Địch.
+
+📅 Ngày: 01/09/2026
+🕕 Thời gian: 18:00
+🏡 Địa điểm: Nhà ông bà Sơn Nở
+
+Rất mong được gặp bạn để cùng chung vui và có một buổi tối thật ấm cúng!`;
+
+    function showToast(text){
+      const toast = document.getElementById('toast');
+      toast.textContent = text;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    async function shareInvite(){
+      if(navigator.share){
+        try{
+          await navigator.share({
+            title: 'Thiệp mời Lễ Kỷ Niệm 2/9',
+            text: inviteText,
+            url: window.location.href
+          });
+        }catch(e){}
+      }else{
+        showToast('Trình duyệt này chưa hỗ trợ chia sẻ trực tiếp.');
+      }
+    }
+  </script>
+</body>
+</html>
